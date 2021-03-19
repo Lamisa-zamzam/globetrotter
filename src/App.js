@@ -5,6 +5,8 @@ import Header from "./Components/Header/Header.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import { createContext, useState } from "react";
+import RideDetail from "./Components/RideDetail/RideDetail";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 export const UserContext = createContext();
 
@@ -22,7 +24,6 @@ function App() {
     return (
         <UserContext.Provider value={[user, setUser]}>
         <Router>
-            {user.name}
             <Switch>
                 <Route path="/home">
                     <Home />
@@ -30,16 +31,18 @@ function App() {
                 <Route exact path="/">
                     <Home />
                 </Route>
-                <Route path="/ride/:name">
+                <PrivateRoute path="/ride/:name">
                     <Header />
-                </Route>
+                    <RideDetail/>
+                </PrivateRoute>
                 <Route path="/login">
                     <Header />
                     <Login/>
                 </Route>
-                <Route path="/destination">
+                <privateRoute path="/destination">
                     <Header />
-                </Route>
+                    <RideDetail/>
+                </privateRoute>
                 <Route path="/blog">
                     <Header />
                 </Route>

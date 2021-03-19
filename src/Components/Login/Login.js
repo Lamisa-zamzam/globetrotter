@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./Login.css";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -55,6 +55,7 @@ const Login = () => {
                 newUser.name = name;
                 newUser.isLoggedIn = true;
                 setUser(newUser);
+                history.replace(from);
             })
             .catch((error) => {
                 var errorCode = error.code;
@@ -82,6 +83,12 @@ const Login = () => {
         // console.log(data);
         handleSignUp(data.name, data.email, data.password);
     };
+
+
+
+    let history = useHistory();
+    let location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
 
     return (
         <div>

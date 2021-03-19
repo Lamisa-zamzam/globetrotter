@@ -31,6 +31,7 @@ const Login = () => {
                 newUser.email = email;
                 newUser.photoURL = photoURL;
                 setUser(newUser);
+                history.replace(from);
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -44,6 +45,8 @@ const Login = () => {
     };
 
     const handleSignUp = (name, userEmail, userPassword) => {
+        const doesPasswordsMatch = checkPasswords();
+        if(doesPasswordsMatch){
         firebase
             .auth()
             .createUserWithEmailAndPassword(userEmail, userPassword)
@@ -64,44 +67,90 @@ const Login = () => {
                 newUser.error = errorMessage;
                 setUser(newUser);
             });
+        }else{
+            const newUser = { ...user };
+            newUser.error = "Your Passwords don't match";
+            setUser(newUser);
+        }
+    };
+
+
+    const handleLogIn = (userEmail, userPassword) => {
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(userEmail, userPassword)
+            .then((userCredential) => {
+                console.log(userCredential.user);
+                const { email } = userCredential.user;
+                const newUser = { ...user };
+                newUser.email = email;
+                newUser.isLoggedIn = true;
+                setUser(newUser);
+                history.replace(from);
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                const newUser = { ...user };
+                newUser.error = errorMessage;
+                setUser(newUser);
+            });
     };
 
     const { register, handleSubmit, watch, errors } = useForm();
 
-    const checkPasswords = (e) => {
-        if (
-            !document.getElementById("password").value ===
-            document.getElementById("confirmPassword").value
-        ) {
-            // setConfirmPasswordError("Your passwords don't match");
-            // console.log("oopps");
-        }
-        // return document.getElementById("password").value === document.getElementById("confirmPassword").value;
-    };
-
     const onSubmit = (data) => {
-        // console.log(data);
-        handleSignUp(data.name, data.email, data.password);
+        console.log(data);
+        data.name
+            ? handleSignUp(data.name, data.email, data.password)
+            : handleLogIn(data.email, data.password);
     };
-
-
 
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
 
+    const toggleForm = (e) => {
+        e.preventDefault();
+        const newUser = { ...user };
+        newUser.isNewUser = !newUser.isNewUser;
+        console.log(user.isNewUser);
+        setUser(newUser);
+        console.log(user.isNewUser);
+    };
+
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
+
+
+    const handleBlur = (e) => {
+        if(e.target.name === "password"){
+            setPassword(e.target.value);
+        }
+        if(e.target.name === "confirmPassword"){
+            setConfirmPassword(e.target.value);
+        }
+    }
+    
+    const checkPasswords = () => {
+        return password === confirmPassword;
+    }
+
+
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className="form-card">
-                <h3>Create an account</h3>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    ref={register({ required: true })}
-                    className="form-field"
-                    placeholder="Your Name"
-                />
+                <h3>{user.isNewUser ? "Create an account" : "Log In"}</h3>
+                {user.isNewUser && (
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        ref={register({ required: true })}
+                        className="form-field"
+                        placeholder="Your Name"
+                    />
+                )}
                 <input
                     type="email"
                     name="email"
@@ -124,22 +173,26 @@ const Login = () => {
                     placeholder="Your Password"
                     className="form-field"
                     id="password"
+                    onBlur={handleBlur}
                 />
                 <br />
                 {errors.password && <span className="error">required</span>}
                 {/* {console.log(errors.password)} */}
-                <input
-                    type="password"
-                    name="confirmPassword"
-                    ref={register({
-                        required: true,
-                        minLength: 8,
-                        pattern: /\d{1}/,
-                    })}
-                    placeholder="Confirm Your Password"
-                    className="form-field"
-                    id="confirmPassword"
-                />
+                {user.isNewUser && (
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        ref={register({
+                            required: true,
+                            minLength: 8,
+                            pattern: /\d{1}/,
+                        })}
+                        placeholder="Confirm Your Password"
+                        className="form-field"
+                        id="confirmPassword"
+                        onBlur={handleBlur}
+                    />
+                )}
                 {errors.confirmPassword && (
                     <span className="error">required</span>
                 )}
@@ -148,23 +201,44 @@ const Login = () => {
                 <br />
                 {<span className="error">{confirmPasswordError}</span>}
                 <br />
-                <div className="savingPassword">
-                    <input
-                        type="checkbox"
-                        name="save-password"
-                        id="save-password"
-                    />
-                    <label
-                        htmlFor="save-password"
-                        style={{ marginRight: "120px" }}
-                    >
-                        Remember Me
-                    </label>
-                    <Link to="/login">Forgot Password</Link>
-                </div>
+                {!user.isNewUser && (
+                    <div className="savingPassword">
+                        <input
+                            type="checkbox"
+                            name="save-password"
+                            id="save-password"
+                        />
+                        <label
+                            htmlFor="save-password"
+                            style={{ marginRight: "120px" }}
+                        >
+                            &nbsp;Remember Me
+                        </label>
+                        <Link to="/login">Forgot Password</Link>
+                    </div>
+                )}
                 <br />
                 <p className="error">{user.error}</p>
-                <input type="submit" value="Create Account" />
+                {user.isNewUser ? (
+                    <input
+                        type="submit"
+                        value="Create Account"
+                        className="submit-button"
+                    />
+                ) : (
+                    <input
+                        type="submit"
+                        value="Log In"
+                        className="submit-button"
+                    />
+                )}
+
+                <p>
+                    {user.isNewUser ? "Already" : "Don't"} have an account?{" "}
+                    <a href="/" onClick={(e) => toggleForm(e)}>
+                        {user.isNewUser ? "Login" : "Create An Account"}
+                    </a>
+                </p>
             </form>
             <div className="social-login">
                 <h4>OR</h4>

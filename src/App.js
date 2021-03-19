@@ -15,12 +15,12 @@ function App() {
         name: "",
         email:"",
         photoURL: "",
-        newUser: true,
+        isNewUser: true,
         isLoggedIn: false,
         error: "",
     });
 
-    console.log(user);
+    console.log(user.isNewUser);
     return (
         <UserContext.Provider value={[user, setUser]}>
         <Router>
@@ -46,9 +46,9 @@ function App() {
                 <Route path="/blog">
                     <Header />
                 </Route>
-                <Route path="/contact">
+                <PrivateRoute path="/contact">
                     <Header />
-                </Route>
+                </PrivateRoute>
                 <Route path="*">
                     <Header />
                 </Route>

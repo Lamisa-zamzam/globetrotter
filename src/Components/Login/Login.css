@@ -23,6 +23,10 @@
     color: red;
 }
 
+.submit-button {
+    margin-bottom: 20px;
+}
+
 .social-login {
     margin-bottom: 50px;
     text-align: center;

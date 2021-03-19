@@ -1,0 +1,17 @@
+.ride-image {
+    height: 180px;
+    margin-top: 20px;
+}
+
+.ride-name {
+    text-align: center;
+    color: black;
+}
+
+.ride-name:hover{
+    text-decoration:none !important;
+}
+
+a:-webkit-any-link{
+    text-decoration:none;
+}

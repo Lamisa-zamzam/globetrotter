@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Clipart_Motorcycle.svg/737px-Clipart_Motorcycle.svg.png",
+        "name": "Motor Bike"
+    },
+    {
+        "id": "2",
+        "image": "https://media.istockphoto.com/vectors/taxi-cab-vector-illustration-cartoon-vector-id165786975?k=6&m=165786975&s=612x612&w=0&h=yA2buSjBynhGTu10XC4i9jFpcF-WDPCrcwp4aqiaQ5c=",
+        "name": "Car"
+    },
+    {
+        "id": "3",
+        "image": "https://clipground.com/images/bus-travel-clipart-19.jpg",
+        "name": "Bus"
+    },
+    {
+        "id": "4",
+        "image": "https://www.downloadclipart.net/large/train-rail-png-free-download.png",
+        "name": "Train"
+    }
+]

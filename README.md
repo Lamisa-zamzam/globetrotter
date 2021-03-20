@@ -1,71 +1,16 @@
-# Getting Started with Create React App
+# Globetrotters
+# The faithful ride service provider
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This responsive project provides a number of ways to travel around the city.It also includes [Google Map](https://developers.google.com/maps/) so that your ride can be better.This website also has [Firebase Authentication System](https://firebase.google.com/docs?authuser=0) for better user experience. You can create an account using email and password or Facebook. There is a card for each vehicle and clicking on them, if you are logged in, you can specify where you want to go from a place and the date on which you want to travel. Then clicking on the search button, you can see the rides available for that date and place. You can read blog and also contact us. Last but not least, this website use private routing form [React Router](https://reactrouter.com/) and [React Hook Form](https://react-hook-form.com/) for form validation.
 
-## Available Scripts
+# Open [My Live Site](https://nostalgic-shannon-f859b3.netlify.app/) to see how it works.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# react-auth-Lamisa-zamzam
+My project includes:\
+    1. [React](https://reactjs.org/docs/getting-started.html),\
+    2. [React Router](https://reactrouter.com/),\
+    3. [React-Bootstrap](https://react-bootstrap.github.io/),\
+    4. [Bootstrap](https://getbootstrap.com/) ,\
+    5. [Font Awesome](https://fontawesome.com/),\
+    6. [Google Map](https://developers.google.com/maps/),\
+    7. [Firebase](https://firebase.google.com/docs?authuser=0),\
+    8. [React Hook Form](https://react-hook-form.com/)

@@ -63,7 +63,7 @@ const RideDetail = () => {
                     </div>
                     <div className="available-rides-container">
                         {dataFound.map((data) => (
-                            <>
+                            <div key={data}>
                                 <div className="rides-available">
                                     <img
                                         src={image}
@@ -81,7 +81,7 @@ const RideDetail = () => {
                                     </div>
                                 </div>
                                 <h5>Price: $67</h5>
-                            </>
+                            </div>
                         ))}
                     </div>
                 </div>

@@ -8,8 +8,8 @@ const Header = () => {
     const [user, setUser] = useContext(UserContext);
     return (
         <Navbar expand="lg" bg="light">
-            <Navbar.Brand as={Link} to="/home"><h4> Globetrotter: The City Ride Service</h4>
-            <p>24/7 faithfully by your side</p>
+            <Navbar.Brand as={Link} to="/home"><img src="https://image.shutterstock.com/image-vector/initial-letter-gt-modern-linked-260nw-444629587.jpg" alt="" className="logo"/><h4 style={{display: "inline"}}> <span className="brand-name"> Globetrotter</span><i className="brand-type"> the city ride service</i></h4>
+            <p className="brand-slogan">24/7 faithfully by your side</p>
             </Navbar.Brand>
            
            

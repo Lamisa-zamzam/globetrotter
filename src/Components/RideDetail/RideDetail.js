@@ -1,4 +1,5 @@
 import {
+    faAngleDoubleLeft,
     faAngleDoubleRight,
     faGripLinesVertical,
     faUsers,
@@ -8,97 +9,107 @@ import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
-import map from "../../images/Map.png";
+import { Link } from "react-router-dom";
 import fakeData from "../FakeData/RidesFakeData.json";
 import Map from "../Map/Map";
+import "./RideDetail.css";
 
 const RideDetail = (props) => {
     const { id } = useParams();
     console.log(id);
 
     console.log(fakeData);
-    const chosenRide = fakeData.find((ride) => ride.id === id);
+    const chosenRide = fakeData.find((ride) => ride.id === id) || {
+        name: "Motor Bike",
+        image:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Clipart_Motorcycle.svg/737px-Clipart_Motorcycle.svg.png",
+    };
     console.log(chosenRide);
     const { image, name } = chosenRide;
     console.log(image);
-    // const [placeFrom, setPlaceFrom] = useState("");
-    // const [placeTo, setPlaceTo] = useState("");
-
-    // const handleBlur = (e) => {
-    //     if (e.target.name === "from") {
-    //         const from = e.target.value;
-    //         setPlaceFrom(from);
-    //     }
-    //     if (e.target.name === "to") {
-    //         const to = e.target.value;
-    //         setPlaceTo(to);
-    //     }
-    // };
 
     const [error, setError] = useState("");
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    // if(placeFrom !== placeTo){
-    // setRideDetail(searchResult);
-    // console.log("hello");
-    // }else{
-    //     setError("Please choose a different place to go, your destination is same as your starting point.")
-    // }
-    // };
     const { handleSubmit, register } = useForm();
 
     const onSubmit = (data, e) => {
+        const dataFound = [1, 2, 3];
         const { from, to } = data;
         let searchResult = (
-            <div>
+            <>
+            <div className="search-results-container">
                 {" "}
-                <FontAwesomeIcon icon={faGripLinesVertical} />
-                <FontAwesomeIcon icon={faAngleDoubleRight} />
-                <h5>{`${from}`}</h5>
-                <FontAwesomeIcon icon={faAngleDoubleRight} />
-                <h5> {`${to}`}</h5>
-                <div>
-                    <img src={image} alt="Ride" style={{ width: "100px" }} />
-                    <h5>{`${name}`}</h5>
-                    <FontAwesomeIcon icon={faUsers} />
-                    <h5>4</h5>
-                    <h5>$67</h5>
-                </div>
-                <div>
-                    <img src={image} alt="Ride" style={{ width: "100px" }} />
-                    <h5>{`${name}`}</h5>
-                    <FontAwesomeIcon icon={faUsers} />
-                    <h5>4</h5>
-                    <h5>$67</h5>
-                </div>
-                <div>
+                <div className="destination-container">
                     {" "}
-                    <img src={image} alt="Ride" style={{ width: "100px" }} />
-                    <h5>{`${name}`}</h5>
-                    <FontAwesomeIcon icon={faUsers} />
-                    <h5>4</h5>
-                    <h5>$67</h5>
+                    <FontAwesomeIcon
+                        icon={faGripLinesVertical}
+                        size="6x"
+                        className="destination-icon"
+                    />
+                    <div>
+                        <div className="from">
+                            <FontAwesomeIcon
+                                icon={faAngleDoubleLeft}
+                                className="destination-icon"
+                                size="2x"
+                            />
+                            <h5>{`${from}`}</h5>
+                        </div>
+                        <div className="to">
+                            <FontAwesomeIcon
+                                icon={faAngleDoubleRight}
+                                className="destination-icon"
+                                size="2x"
+                            />
+                            <h5> {`${to}`}</h5>
+                        </div>
+                    </div>
                 </div>
+                <div className="available-rides-container">
+                    {dataFound.map((data) => (
+                        <div className="rides-available">
+                            <img
+                                src={image}
+                                alt="Ride"
+                                style={{ width: "100%" }}
+                            />
+                            <h5>{`${name}`}</h5>
+                            <div className="riders-number">
+                                {" "}
+                                <FontAwesomeIcon
+                                    icon={faUsers}
+                                    style={{ marginTop: "5px" }}
+                                />
+                                <h5>4</h5>
+                            </div>
+                            <h5>$67</h5>
+                        </div>
+                    ))}
+                </div>               
             </div>
+            <Link to="/home" style={{textDecoration: "underline"}}>Choose a different vehicle</Link>
+            </>
         );
         e.preventDefault();
         console.log(data);
         if (from !== to) {
-            console.log("surprise");
+            setError("");
             setRideDetail(searchResult);
         } else {
-            console.log("error");
+            setError(
+                "Please choose a different place to go, your destination is the same as your starting point."
+            );
         }
     };
 
     const [rideDetail, setRideDetail] = useState(
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="search-form">
             <label htmlFor="from">Starting From</label>
             <br />
             <input
                 type="text"
                 name="from"
                 id=""
+                className="search-form-field"
                 ref={register({ required: true })}
                 required
             />
@@ -109,23 +120,33 @@ const RideDetail = (props) => {
                 type="text"
                 name="to"
                 id=""
+                className="search-form-field"
                 required
                 ref={register({ required: true })}
             />
             <br />
+            <label htmlFor="calender">Ride Date</label>
             <br />
-            <input type="submit" />
+            <input type="date" name="calender" id="" required />
+            <br />
+            <br />
+            <input
+                type="submit"
+                value="Search Rides"
+                className="search-button"
+            />
         </form>
-    ); 
+    );
 
     return (
         <Container style={{ marginTop: "-100px" }}>
             <Row>
-                <Col md={4}>{rideDetail}</Col>
-                <Col md={8}>
-                    {/* <img src={map} alt="" /> */}
-                    <Map/>
+                <Col md={4}>
+                    {rideDetail}
+                    <br />
+                    <p style={{ color: "red" }}>{error}</p>
                 </Col>
+                <Col md={8}>{/* <Map /> */}</Col>
             </Row>
         </Container>
     );

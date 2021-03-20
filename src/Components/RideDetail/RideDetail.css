@@ -1,0 +1,79 @@
+.rides-available,
+.riders-number,
+.available-rides-container,
+.destination-container,
+.from,
+.to {
+    display: grid;
+}
+
+.search-form {
+    background-color: rgb(243, 213, 174);
+    padding: 50px;
+    padding-right: 70px !important;
+}
+
+.search-form-field {
+    width: 230px;
+    border: none;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.search-button{
+    width: 230px;
+    height: 40px;
+    background-color: dodgerblue;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.rides-available {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    padding-right: 50px !important;
+    grid-template-columns: 20% 20% 20% 20%;
+    gap: 30px;
+}
+
+.riders-number {
+    grid-template-columns: 60% 40%;
+}
+
+.available-rides-container {
+    padding-top: 20px;
+    gap: 10px;
+}
+
+.destination-container {
+    grid-template-columns: 30% 70%;
+}
+
+.destination-icon {
+    color: white;
+}
+
+.from,
+.to {
+    margin-left: -35px;
+    grid-template-columns: 15% 85%;
+    margin-top: 10px;
+}
+
+.from h5,
+.to h5 {
+    margin-top: 3px;
+    color: white;
+}
+
+.search-results-container {
+    background-color: dodgerblue;
+    border-radius: 10px;
+    padding: 15px;
+    padding-right: 10px !important;
+    margin-bottom: 5px;
+}

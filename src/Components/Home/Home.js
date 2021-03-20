@@ -8,7 +8,7 @@ import Header from "../Header/Header";
 
 const Home = () => {
     const appStyle = {
-        backgroundImage: `url(${background})`,
+        backgroundImage: `url("https://i.gifer.com/1Vfn.gif")`,
     };
     return (
         <div className="home" style={appStyle}>

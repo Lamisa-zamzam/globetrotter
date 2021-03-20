@@ -8,7 +8,7 @@ const Ride = (props) => {
     return (
         <Col xs={12} md={6} lg={3}>
             <Link to={`/ride/${id}`}>
-            <Card>
+            <Card className="ride">
                 <Card.Img variant="top" src={image} alt="" className="ride-image"/>
                 <Card.Body className="ride-name">
                     <h4>{name}</h4>

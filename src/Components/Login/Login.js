@@ -7,6 +7,11 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./Firebase.Config.js";
 import { UserContext } from "../../App";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faFacebookSquare,
+    faTwitterSquare,
+} from "@fortawesome/free-brands-svg-icons";
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -46,34 +51,33 @@ const Login = () => {
 
     const handleSignUp = (name, userEmail, userPassword) => {
         const doesPasswordsMatch = checkPasswords();
-        if(doesPasswordsMatch){
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(userEmail, userPassword)
-            .then((userCredential) => {
-                console.log(userCredential.user);
-                const { email } = userCredential.user;
-                const newUser = { ...user };
-                newUser.email = email;
-                newUser.name = name;
-                newUser.isLoggedIn = true;
-                setUser(newUser);
-                history.replace(from);
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                const newUser = { ...user };
-                newUser.error = errorMessage;
-                setUser(newUser);
-            });
-        }else{
+        if (doesPasswordsMatch) {
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(userEmail, userPassword)
+                .then((userCredential) => {
+                    console.log(userCredential.user);
+                    const { email } = userCredential.user;
+                    const newUser = { ...user };
+                    newUser.email = email;
+                    newUser.name = name;
+                    newUser.isLoggedIn = true;
+                    setUser(newUser);
+                    history.replace(from);
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    const newUser = { ...user };
+                    newUser.error = errorMessage;
+                    setUser(newUser);
+                });
+        } else {
             const newUser = { ...user };
             newUser.error = "Your Passwords don't match";
             setUser(newUser);
         }
     };
-
 
     const handleLogIn = (userEmail, userPassword) => {
         firebase
@@ -123,25 +127,30 @@ const Login = () => {
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
 
-
     const handleBlur = (e) => {
-        if(e.target.name === "password"){
+        if (e.target.name === "password") {
             setPassword(e.target.value);
         }
-        if(e.target.name === "confirmPassword"){
+        if (e.target.name === "confirmPassword") {
             setConfirmPassword(e.target.value);
         }
-    }
-    
+    };
+
     const checkPasswords = () => {
         return password === confirmPassword;
-    }
-
+    };
 
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className="form-card">
-                <h3>{user.isNewUser ? "Create an account" : "Log In"}</h3>
+                <img
+                    src="https://image.shutterstock.com/image-vector/initial-letter-gt-modern-linked-260nw-444629587.jpg"
+                    alt="Globetrotter"
+                    className="logo"
+                />
+                <h3 style={{ display: "inline", marginLeft: "20px" }}>
+                    {user.isNewUser ? "Create an account" : "Log In"}
+                </h3>
                 {user.isNewUser && (
                     <input
                         type="text"
@@ -160,8 +169,13 @@ const Login = () => {
                     className="form-field"
                     placeholder="Your Email"
                 />
-                {errors.email && <span className="error">required</span>}
-                {/* {console.log(errors.email)} */}
+                {errors.email && (
+                    <span className="error">
+                        {errors.email.type === "required"
+                            ? "Email is required"
+                            : "Your Email pattern is not correct"}
+                    </span>
+                )}
                 <br />
                 <input
                     type="password"
@@ -177,8 +191,16 @@ const Login = () => {
                     onBlur={handleBlur}
                 />
                 <br />
-                {errors.password && <span className="error">required</span>}
-                {/* {console.log(errors.password)} */}
+                {errors.password && (
+                    <span className="error">
+                        {errors.password.type === "required" &&
+                            "Password is required"}
+                        {errors.password.type === "pattern" &&
+                            "Your password must contain one or more numbers"}
+                        {errors.password.type === "minLength" &&
+                            "Your Password must contain at least 8 characters"}
+                    </span>
+                )}
                 {user.isNewUser && (
                     <input
                         type="password"
@@ -195,10 +217,15 @@ const Login = () => {
                     />
                 )}
                 {errors.confirmPassword && (
-                    <span className="error">required</span>
+                    <span className="error">
+                        {errors.confirmPassword.type === "required" &&
+                            "Password is required"}
+                        {errors.confirmPassword.type === "pattern" &&
+                            "Your password must contain one or more numbers"}
+                        {errors.confirmPassword.type === "minLength" &&
+                            "Your Password must contain at least 8 characters"}
+                    </span>
                 )}
-                {/* {console.log(errors.confirmPassword)} */}
-
                 <br />
                 {<span className="error">{confirmPasswordError}</span>}
                 <br />
@@ -215,7 +242,7 @@ const Login = () => {
                         >
                             &nbsp;Remember Me
                         </label>
-                        <Link to="/login">Forgot Password</Link>
+                        <Link to="/login" style={{textDecoration: "underline"}}>Forgot Password</Link>
                     </div>
                 )}
                 <br />
@@ -236,22 +263,35 @@ const Login = () => {
 
                 <p>
                     {user.isNewUser ? "Already" : "Don't"} have an account?{" "}
-                    <a href="/" onClick={(e) => toggleForm(e)}>
+                    <a href="/" style={{textDecoration: "underline"}} onClick={(e) => toggleForm(e)}>
                         {user.isNewUser ? "Login" : "Create An Account"}
                     </a>
                 </p>
             </form>
             <div className="social-login">
-                <h4>OR</h4>
+                <h4>or</h4>
+                <br />
                 <button
                     className="social-media-btn"
                     onClick={handleFacebookSignIn}
                 >
+                    <FontAwesomeIcon
+                        icon={faFacebookSquare}
+                        className="social-media-icon"
+                        style={{ color: "royalBlue" }}
+                        size="2x"
+                    />{" "}
                     Continue With Facebook
                 </button>
                 <br />
                 <br />
                 <button className="social-media-btn">
+                    <FontAwesomeIcon
+                        icon={faTwitterSquare}
+                        className="social-media-icon"
+                        style={{ color: "deepSkyBlue" }}
+                        size="2x"
+                    />{" "}
                     Continue With Twitter
                 </button>
             </div>

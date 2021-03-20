@@ -1,5 +1,5 @@
 .nav-links {
-    margin-left: 100px;
+    margin-left: 40px;
 }
 
 .nav-link {
@@ -9,4 +9,27 @@
 .nav-link-last {
     margin-left: 40px;
     margin-right: 20px;
+}
+
+.brand-name {
+    margin-left: 5px;
+    color: rgb(165, 55, 55);
+    font-size: 40px;
+    text-shadow: 3px 3px 3px gray;
+}
+
+.brand-slogan {
+    margin-bottom: -10px;
+    margin-left: 70px;
+}
+
+.brand-type {
+    margin-left: 10px;
+}
+
+.logo {
+    margin-top: -15px;
+    width: 50px;
+    border-radius: 50px;
+    box-shadow: 5px 3px 10px gray;
 }

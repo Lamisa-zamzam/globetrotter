@@ -8,15 +8,15 @@
     color: black;
 }
 
-.ride-name:hover{
-    text-decoration:none !important;
+.ride-name:hover {
+    text-decoration: none !important;
 }
 
-a:-webkit-any-link{
-    text-decoration:none;
+a:-webkit-any-link {
+    text-decoration: none;
 }
 
-.ride{
+.ride {
     background-color: aliceblue;
     margin-bottom: 20px;
 }

@@ -2,17 +2,19 @@ import React, { useContext, useState } from "react";
 import "./Login.css";
 import { useForm } from "react-hook-form";
 import { Link, useHistory, useLocation } from "react-router-dom";
-
+import { Container } from "react-bootstrap";
+import { UserContext } from "../../App";
+// Firebase
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./Firebase.Config.js";
-import { UserContext } from "../../App";
+
+// Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faFacebookSquare,
     faTwitterSquare,
 } from "@fortawesome/free-brands-svg-icons";
-import { Container } from "react-bootstrap";
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -21,16 +23,14 @@ if (!firebase.apps.length) {
 const Login = () => {
     const [user, setUser] = useContext(UserContext);
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
-    const [submitErrorMessage, setSubmitErrorMessage] = useState("");
 
+    // Facebook sign in
     const facebookProvider = new firebase.auth.FacebookAuthProvider();
     const handleFacebookSignIn = () => {
         firebase
             .auth()
             .signInWithPopup(facebookProvider)
             .then((result) => {
-                const credential = result.credential;
-                const accessToken = credential.accessToken;
                 const { displayName, email, photoURL } = result.user;
                 const newUser = { ...user };
                 newUser.name = displayName;
@@ -40,16 +40,14 @@ const Login = () => {
                 history.replace(from);
             })
             .catch((error) => {
-                const errorCode = error.code;
                 const errorMessage = error.message;
-                const email = error.email;
-                const credential = error.credential;
                 const newUser = { ...user };
                 newUser.error = errorMessage;
                 setUser(newUser);
             });
     };
 
+    // Register with email and password
     const handleSignUp = (name, userEmail, userPassword) => {
         const doesPasswordsMatch = checkPasswords();
         if (doesPasswordsMatch) {
@@ -57,7 +55,6 @@ const Login = () => {
                 .auth()
                 .createUserWithEmailAndPassword(userEmail, userPassword)
                 .then((userCredential) => {
-                    console.log(userCredential.user);
                     const { email } = userCredential.user;
                     const newUser = { ...user };
                     newUser.email = email;
@@ -67,7 +64,6 @@ const Login = () => {
                     history.replace(from);
                 })
                 .catch((error) => {
-                    var errorCode = error.code;
                     var errorMessage = error.message;
                     const newUser = { ...user };
                     newUser.error = errorMessage;
@@ -80,12 +76,12 @@ const Login = () => {
         }
     };
 
+    // Sign in with email and password
     const handleLogIn = (userEmail, userPassword) => {
         firebase
             .auth()
             .signInWithEmailAndPassword(userEmail, userPassword)
             .then((userCredential) => {
-                console.log(userCredential.user);
                 const { email } = userCredential.user;
                 const newUser = { ...user };
                 newUser.email = email;
@@ -94,7 +90,6 @@ const Login = () => {
                 history.replace(from);
             })
             .catch((error) => {
-                var errorCode = error.code;
                 var errorMessage = error.message;
                 const newUser = { ...user };
                 newUser.error = errorMessage;
@@ -102,10 +97,10 @@ const Login = () => {
             });
     };
 
-    const { register, handleSubmit, watch, errors } = useForm();
+    // React hook form
+    const { register, handleSubmit, errors } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
         data.name
             ? handleSignUp(data.name, data.email, data.password)
             : handleLogIn(data.email, data.password);
@@ -115,14 +110,13 @@ const Login = () => {
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
 
+    // Toggling sign up and sign in
     const toggleForm = (e) => {
         e.preventDefault();
         const newUser = { ...user };
         newUser.isNewUser = !newUser.isNewUser;
         newUser.error = "";
-        console.log(user.isNewUser);
         setUser(newUser);
-        console.log(user.isNewUser);
     };
 
     const [password, setPassword] = useState();
@@ -233,7 +227,6 @@ const Login = () => {
                     </span>
                 )}
                 <br />
-                {<span className="error">{confirmPasswordError}</span>}
                 <br />
                 {!user.isNewUser && (
                     <div className="savingPassword">

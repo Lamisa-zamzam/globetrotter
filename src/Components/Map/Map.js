@@ -1,5 +1,5 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const MapContainer = () => {
     const mapStyles = {
@@ -50,18 +50,6 @@ const MapContainer = () => {
         },
     ];
 
-    // const [currentPosition, setCurrentPosition] = useState({});
-    // const success = (position) => {
-    //     const currentPosition = {
-    //         lat: position.coords.latitude,
-    //         lng: position.coords.longitude,
-    //     };
-    //     setCurrentPosition(currentPosition);
-    // };
-
-    // useEffect(() => {
-    //     navigator.geolocation.getCurrentPosition(success);
-    // });
     return (
         <div>
             <LoadScript googleMapsApiKey="AIzaSyCA8RinB17IjvKkz1bJRblZHkCcQsJd0e0">

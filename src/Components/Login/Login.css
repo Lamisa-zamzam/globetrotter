@@ -15,7 +15,7 @@
 }
 
 .savingPassword {
-   text-align:center;
+    text-align: center;
 }
 
 .error {
@@ -40,7 +40,7 @@
 }
 
 .social-media-btn {
-    padding:2px;
+    padding: 2px;
     width: 200px;
     box-shadow: 2px 2px 5px gray;
     height: 55px;

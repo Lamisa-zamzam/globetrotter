@@ -21,7 +21,6 @@ function App() {
         error: "",
     });
 
-    console.log(user.isNewUser);
     return (
         <UserContext.Provider value={[user, setUser]}>
             <Router>
@@ -46,14 +45,16 @@ function App() {
                         <h3>Here goes our blog...</h3>
                     </Route>
                     <PrivateRoute path="/contact">
-                        <div style={{textAlign:"center", marginTop:"100px"}}> 
+                        <div
+                            style={{ textAlign: "center", marginTop: "100px" }}
+                        >
                             {" "}
                             <h2>Contact Us</h2>
                             <p>Email: lamisazamzam@gmail.com</p>
                         </div>
                     </PrivateRoute>
                     <Route path="*">
-                        <NotFound/>
+                        <NotFound />
                     </Route>
                 </Switch>
             </Router>

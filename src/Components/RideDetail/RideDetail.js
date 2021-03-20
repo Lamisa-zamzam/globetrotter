@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -14,86 +14,84 @@ import fakeData from "../FakeData/RidesFakeData.json";
 import Map from "../Map/Map";
 import "./RideDetail.css";
 
-const RideDetail = (props) => {
+const RideDetail = () => {
     const { id } = useParams();
-    console.log(id);
-
-    console.log(fakeData);
     const chosenRide = fakeData.find((ride) => ride.id === id) || {
         name: "Motor Bike",
         image:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Clipart_Motorcycle.svg/737px-Clipart_Motorcycle.svg.png",
     };
-    console.log(chosenRide);
     const { image, name } = chosenRide;
-    console.log(image);
 
     const [error, setError] = useState("");
     const { handleSubmit, register } = useForm();
 
     const onSubmit = (data, e) => {
+        // An Array to show search results
         const dataFound = [1, 2, 3];
         const { from, to } = data;
+        // result shown after button click
         let searchResult = (
             <>
-            <div className="search-results-container">
-                {" "}
-                <div className="destination-container">
+                <div className="search-results-container">
                     {" "}
-                    <FontAwesomeIcon
-                        icon={faGripLinesVertical}
-                        size="6x"
-                        className="destination-icon"
-                    />
-                    <div>
-                        <div className="from">
-                            <FontAwesomeIcon
-                                icon={faAngleDoubleLeft}
-                                className="destination-icon"
-                                size="2x"
-                            />
-                            <h5>{`${from}`}</h5>
-                        </div>
-                        <div className="to">
-                            <FontAwesomeIcon
-                                icon={faAngleDoubleRight}
-                                className="destination-icon"
-                                size="2x"
-                            />
-                            <h5> {`${to}`}</h5>
-                        </div>
-                    </div>
-                </div>
-                
-                <div className="available-rides-container">
-                    {dataFound.map((data) => (
-                        <>
-                        <div className="rides-available">
-                            <img
-                                src={image}
-                                alt="Ride"
-                                style={{ width: "100%" }}
-                            />
-                            <h5>{`${name}`}</h5>
-                            <div className="riders-number">
-                                {" "}
+                    <div className="destination-container">
+                        {" "}
+                        <FontAwesomeIcon
+                            icon={faGripLinesVertical}
+                            size="6x"
+                            className="destination-icon"
+                        />
+                        <div>
+                            <div className="from">
                                 <FontAwesomeIcon
-                                    icon={faUsers}
-                                    style={{ marginTop: "5px" }}
+                                    icon={faAngleDoubleLeft}
+                                    className="destination-icon"
+                                    size="2x"
                                 />
-                                <h5>4</h5>
+                                <h5>{`${from}`}</h5>
+                            </div>
+                            <div className="to">
+                                <FontAwesomeIcon
+                                    icon={faAngleDoubleRight}
+                                    className="destination-icon"
+                                    size="2x"
+                                />
+                                <h5> {`${to}`}</h5>
                             </div>
                         </div>
-                         <h5>Price: $67</h5>
-                         </>
-                    ))}
-                </div>               
-            </div>
-            <Link to="/home" style={{textDecoration: "underline"}}>Choose a different vehicle</Link>
+                    </div>
+                    <div className="available-rides-container">
+                        {dataFound.map((data) => (
+                            <>
+                                <div className="rides-available">
+                                    <img
+                                        src={image}
+                                        alt="Ride"
+                                        style={{ width: "100%" }}
+                                    />
+                                    <h5>{`${name}`}</h5>
+                                    <div className="riders-number">
+                                        {" "}
+                                        <FontAwesomeIcon
+                                            icon={faUsers}
+                                            style={{ marginTop: "5px" }}
+                                        />
+                                        <h5>4</h5>
+                                    </div>
+                                </div>
+                                <h5>Price: $67</h5>
+                            </>
+                        ))}
+                    </div>
+                </div>
+                <Link to="/home" style={{ textDecoration: "underline" }}>
+                    Choose a different vehicle
+                </Link>
             </>
         );
         e.preventDefault();
-        console.log(data);
+        // validation : if password and confirm password match
         if (from !== to) {
             setError("");
             setRideDetail(searchResult);
@@ -130,14 +128,16 @@ const RideDetail = (props) => {
             <br />
             <label htmlFor="calender">Ride Date</label>
             <br />
-            <input type="date" name="calender" id="" required style={{width: "80%"}}/>
-            <br />
-            <br />
             <input
-                type="submit"
-                value="Search"
-                className="search-button"
+                type="date"
+                name="calender"
+                id=""
+                required
+                style={{ width: "80%" }}
             />
+            <br />
+            <br />
+            <input type="submit" value="Search" className="search-button" />
         </form>
     );
 
@@ -149,7 +149,9 @@ const RideDetail = (props) => {
                     <br />
                     <p style={{ color: "red" }}>{error}</p>
                 </Col>
-                <Col md={8}><Map /></Col>
+                <Col md={8}>
+                    <Map />
+                </Col>
             </Row>
         </Container>
     );

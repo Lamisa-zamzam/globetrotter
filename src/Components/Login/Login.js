@@ -22,6 +22,28 @@ if (!firebase.apps.length) {
 
 const Login = () => {
     const [user, setUser] = useContext(UserContext);
+    const handleUser = (name, email, photoURL, whetherLoggedIn) => {
+        const newUser = { ...user };
+        if (name !== undefined) {
+            newUser.name = name;
+        }
+        newUser.email = email;
+        if (photoURL !== undefined) {
+            newUser.photoURL = photoURL;
+        }
+        if (whetherLoggedIn !== undefined) {
+            newUser.isLoggedIn = true;
+        }
+        setUser(newUser);
+        history.replace(from);
+    };
+
+    const handleErrorMessage = (error) => {
+        const errorMessage = error.message;
+        const newUser = { ...user };
+        newUser.error = errorMessage;
+        setUser(newUser);
+    };
 
     // Facebook sign in
     const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -31,18 +53,10 @@ const Login = () => {
             .signInWithPopup(facebookProvider)
             .then((result) => {
                 const { displayName, email, photoURL } = result.user;
-                const newUser = { ...user };
-                newUser.name = displayName;
-                newUser.email = email;
-                newUser.photoURL = photoURL;
-                setUser(newUser);
-                history.replace(from);
+                handleUser(displayName, email, photoURL);
             })
             .catch((error) => {
-                const errorMessage = error.message;
-                const newUser = { ...user };
-                newUser.error = errorMessage;
-                setUser(newUser);
+                handleErrorMessage(error);
             });
     };
 
@@ -55,18 +69,10 @@ const Login = () => {
                 .createUserWithEmailAndPassword(userEmail, userPassword)
                 .then((userCredential) => {
                     const { email } = userCredential.user;
-                    const newUser = { ...user };
-                    newUser.email = email;
-                    newUser.name = name;
-                    newUser.isLoggedIn = true;
-                    setUser(newUser);
-                    history.replace(from);
+                    handleUser(name, email, undefined, true);
                 })
                 .catch((error) => {
-                    var errorMessage = error.message;
-                    const newUser = { ...user };
-                    newUser.error = errorMessage;
-                    setUser(newUser);
+                    handleErrorMessage(error);
                 });
         } else {
             const newUser = { ...user };
@@ -82,17 +88,10 @@ const Login = () => {
             .signInWithEmailAndPassword(userEmail, userPassword)
             .then((userCredential) => {
                 const { email } = userCredential.user;
-                const newUser = { ...user };
-                newUser.email = email;
-                newUser.isLoggedIn = true;
-                setUser(newUser);
-                history.replace(from);
+                handleUser(undefined, email, undefined, true);
             })
             .catch((error) => {
-                var errorMessage = error.message;
-                const newUser = { ...user };
-                newUser.error = errorMessage;
-                setUser(newUser);
+                handleErrorMessage(error);
             });
     };
 

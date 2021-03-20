@@ -7,8 +7,12 @@ import "./Header.css";
 const Header = () => {
     const [user, setUser] = useContext(UserContext);
     return (
-        <Navbar expand="lg">
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar expand="lg" bg="light">
+            <Navbar.Brand as={Link} to="/home"><h4> Globetrotter: The City Ride Service</h4>
+            <p>24/7 faithfully by your side</p>
+            </Navbar.Brand>
+           
+           
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto nav-links">

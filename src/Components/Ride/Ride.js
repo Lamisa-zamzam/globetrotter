@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import './Ride.css';
 
 const Ride = (props) => {
-    const { name, image } = props.ride;
+    const { id, name, image } = props.ride;
     return (
         <Col xs={12} md={6} lg={3}>
-            <Link to={`/ride/${name}`}>
+            <Link to={`/ride/${id}`}>
             <Card>
                 <Card.Img variant="top" src={image} alt="" className="ride-image"/>
                 <Card.Body className="ride-name">

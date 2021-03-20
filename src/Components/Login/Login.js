@@ -114,6 +114,7 @@ const Login = () => {
         e.preventDefault();
         const newUser = { ...user };
         newUser.isNewUser = !newUser.isNewUser;
+        newUser.error = "";
         console.log(user.isNewUser);
         setUser(newUser);
         console.log(user.isNewUser);

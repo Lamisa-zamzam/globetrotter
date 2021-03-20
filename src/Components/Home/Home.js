@@ -12,7 +12,6 @@ const Home = () => {
     };
     return (
         <div className="home" style={appStyle}>
-            <Header/>
             <Container className="container">
                 <Row>
                     {fakeData.map((ride) => (

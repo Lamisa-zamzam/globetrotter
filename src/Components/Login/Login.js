@@ -22,7 +22,6 @@ if (!firebase.apps.length) {
 
 const Login = () => {
     const [user, setUser] = useContext(UserContext);
-    const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
     // Facebook sign in
     const facebookProvider = new firebase.auth.FacebookAuthProvider();

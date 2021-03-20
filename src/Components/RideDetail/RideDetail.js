@@ -64,8 +64,10 @@ const RideDetail = (props) => {
                         </div>
                     </div>
                 </div>
+                
                 <div className="available-rides-container">
                     {dataFound.map((data) => (
+                        <>
                         <div className="rides-available">
                             <img
                                 src={image}
@@ -81,8 +83,9 @@ const RideDetail = (props) => {
                                 />
                                 <h5>4</h5>
                             </div>
-                            <h5>$67</h5>
                         </div>
+                         <h5>Price: $67</h5>
+                         </>
                     ))}
                 </div>               
             </div>
@@ -127,12 +130,12 @@ const RideDetail = (props) => {
             <br />
             <label htmlFor="calender">Ride Date</label>
             <br />
-            <input type="date" name="calender" id="" required />
+            <input type="date" name="calender" id="" required style={{width: "80%"}}/>
             <br />
             <br />
             <input
                 type="submit"
-                value="Search Rides"
+                value="Search"
                 className="search-button"
             />
         </form>
@@ -146,7 +149,7 @@ const RideDetail = (props) => {
                     <br />
                     <p style={{ color: "red" }}>{error}</p>
                 </Col>
-                <Col md={8}>{/* <Map /> */}</Col>
+                <Col md={8}><Map /></Col>
             </Row>
         </Container>
     );

@@ -12,6 +12,7 @@ import {
     faFacebookSquare,
     faTwitterSquare,
 } from "@fortawesome/free-brands-svg-icons";
+import { Container } from "react-bootstrap";
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -141,7 +142,7 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <Container>
             <form onSubmit={handleSubmit(onSubmit)} className="form-card">
                 <img
                     src="https://image.shutterstock.com/image-vector/initial-letter-gt-modern-linked-260nw-444629587.jpg"
@@ -151,6 +152,7 @@ const Login = () => {
                 <h3 style={{ display: "inline", marginLeft: "20px" }}>
                     {user.isNewUser ? "Create an account" : "Log In"}
                 </h3>
+                <br />
                 {user.isNewUser && (
                     <input
                         type="text"
@@ -161,6 +163,7 @@ const Login = () => {
                         placeholder="Your Name"
                     />
                 )}
+                <br />
                 <input
                     type="email"
                     name="email"
@@ -169,6 +172,7 @@ const Login = () => {
                     className="form-field"
                     placeholder="Your Email"
                 />
+                <br />
                 {errors.email && (
                     <span className="error">
                         {errors.email.type === "required"
@@ -201,6 +205,7 @@ const Login = () => {
                             "Your Password must contain at least 8 characters"}
                     </span>
                 )}
+                <br />
                 {user.isNewUser && (
                     <input
                         type="password"
@@ -216,6 +221,7 @@ const Login = () => {
                         onBlur={handleBlur}
                     />
                 )}
+                <br />
                 {errors.confirmPassword && (
                     <span className="error">
                         {errors.confirmPassword.type === "required" &&
@@ -238,11 +244,16 @@ const Login = () => {
                         />
                         <label
                             htmlFor="save-password"
-                            style={{ marginRight: "120px" }}
+                            style={{ marginRight: "50px" }}
                         >
                             &nbsp;Remember Me
                         </label>
-                        <Link to="/login" style={{textDecoration: "underline"}}>Forgot Password</Link>
+                        <Link
+                            to="/login"
+                            style={{ textDecoration: "underline" }}
+                        >
+                            Forgot Password
+                        </Link>
                     </div>
                 )}
                 <br />
@@ -250,7 +261,7 @@ const Login = () => {
                 {user.isNewUser ? (
                     <input
                         type="submit"
-                        value="Create Account"
+                        value="Create"
                         className="submit-button"
                     />
                 ) : (
@@ -260,16 +271,21 @@ const Login = () => {
                         className="submit-button"
                     />
                 )}
-
+                <br />
                 <p>
                     {user.isNewUser ? "Already" : "Don't"} have an account?{" "}
-                    <a href="/" style={{textDecoration: "underline"}} onClick={(e) => toggleForm(e)}>
+                    <a
+                        href="/"
+                        style={{ textDecoration: "underline" }}
+                        onClick={(e) => toggleForm(e)}
+                    >
                         {user.isNewUser ? "Login" : "Create An Account"}
                     </a>
                 </p>
             </form>
             <div className="social-login">
                 <h4>or</h4>
+                <h4>continue with</h4>
                 <br />
                 <button
                     className="social-media-btn"
@@ -281,7 +297,7 @@ const Login = () => {
                         style={{ color: "royalBlue" }}
                         size="2x"
                     />{" "}
-                    Continue With Facebook
+                    Facebook
                 </button>
                 <br />
                 <br />
@@ -292,10 +308,10 @@ const Login = () => {
                         style={{ color: "deepSkyBlue" }}
                         size="2x"
                     />{" "}
-                    Continue With Twitter
+                    Twitter
                 </button>
             </div>
-        </div>
+        </Container>
     );
 };
 

@@ -18,13 +18,14 @@
     text-shadow: 3px 3px 3px gray;
 }
 
-.brand-slogan {
+.brand-slogan, .brand-type {
     margin-bottom: -10px;
     margin-left: 70px;
+    margin-top: -7px;
 }
 
-.brand-type {
-    margin-left: 10px;
+.brand-slogan{
+    font-size: 15px;
 }
 
 .logo {

@@ -14,3 +14,10 @@ My project includes:\
     6. [Google Map](https://developers.google.com/maps/),\
     7. [Firebase](https://firebase.google.com/docs?authuser=0) and\
     8. [React Hook Form](https://react-hook-form.com/).
+
+### Roadmap
+=> developing a backend\
+=> making things dynamic
+
+### Contributing
+Pull requests are welcome. Consider opening a issue for major changes.
